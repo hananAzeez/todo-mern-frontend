@@ -23,4 +23,12 @@ const deleteTodo = (_id, setTodo) => {
     getAllTodo(setTodo);
   });
 };
-export { getAllTodo, createTodo, deleteTodo };
+
+const updateTodo = (formData, setFormData, setTodo) => {
+  axios.put(`${baseUrl}/update`, { formData }).then((data) => {
+    console.log(data);
+    getAllTodo(setTodo);
+    setFormData({});
+  });
+};
+export { getAllTodo, createTodo, updateTodo, deleteTodo };

@@ -2,7 +2,21 @@ import { BsThreeDots } from "react-icons/bs";
 import TodoCardOptions from "./TodoCardOptions";
 import { useState } from "react";
 
-const TodoCard = ({ title, description, tags, setTodo, id }) => {
+const TodoCard = ({
+  title,
+  description,
+  tags,
+  setTodo,
+  id,
+  editMode,
+  setEditMode,
+}) => {
+  const [formData, setFormData] = useState({
+    _id: id,
+    title: title,
+    description: description,
+    tags: tags,
+  });
   const [showOptions, setShowOptions] = useState(false);
   const color = [];
   const tagColor = (tags) => {
@@ -41,6 +55,9 @@ const TodoCard = ({ title, description, tags, setTodo, id }) => {
             showOptions={showOptions}
             setTodo={setTodo}
             id={id}
+            formData={formData}
+            setFormData={setFormData}
+            setEditMode={setEditMode}
           />
         </div>
       </div>

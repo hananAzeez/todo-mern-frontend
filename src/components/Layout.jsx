@@ -7,7 +7,8 @@ import TodoModel from "./TodoModel";
 
 const Layout = () => {
   const [todo, setTodo] = useState([]);
-  const [displayModel, setDisplayModel] = useState(false);
+  const [showModel, setShowModel] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     getAllTodo(setTodo);
@@ -16,7 +17,7 @@ const Layout = () => {
     <>
       <div
         className={`${
-          displayModel ? "" : "hidden"
+          showModel ? "" : "hidden"
         } w-full h-full bg-black absolute opacity-30`}
       />
       <div className="flex justify-start gap-5 max-w-7xl mx-auto">
@@ -24,7 +25,7 @@ const Layout = () => {
         <div className="content flex flex-col py-16 gap-16 w-full">
           <HiPlus
             className="self-end text-3xl cursor-pointer z-10"
-            onClick={() => setDisplayModel(true)}
+            onClick={() => setShowModel(true)}
           />
           <div className="grid grid-cols-2 gap-5">
             {Array.isArray(todo) && todo.length === 0 ? (
@@ -41,14 +42,19 @@ const Layout = () => {
                     tags={item.tags}
                     completed={item.completed}
                     setTodo={setTodo}
+                    setShowModel={setShowModel}
+                    editMode={editMode}
+                    setEditMode={setEditMode}
                   />
                 );
               })
             )}
             <TodoModel
-              setDisplayModel={setDisplayModel}
-              displayModel={displayModel}
+              setShowModel={setShowModel}
+              showModel={showModel}
               setTodo={setTodo}
+              editMode={editMode}
+              setEditMode={setEditMode}
             />
           </div>
         </div>

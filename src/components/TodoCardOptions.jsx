@@ -1,13 +1,16 @@
 import { deleteTodo } from "../utils/handleApi";
 
-const TodoCardOptions = ({ showOptions, id, setTodo }) => {
+const TodoCardOptions = ({ showOptions, id, setTodo, setEditMode }) => {
   return (
     <div
       className={`${
         showOptions ? "flex" : "hidden"
       } flex-col rounded-xl bg-white w-44 absolute right-0 top-full shadow-sm`}
     >
-      <div className="edit px-6 hover:bg-gray-100 pb-3 pt-4 rounded-t-xl cursor-pointer`">
+      <div
+        className="edit px-6 hover:bg-gray-100 pb-3 pt-4 rounded-t-xl cursor-pointer`"
+        onClick={() => setEditMode(true)}
+      >
         Edit...
       </div>
       <div className="h-[1px] w-full bg-gray-200" />

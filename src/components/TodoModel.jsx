@@ -7,7 +7,7 @@ function useLogFormData(formData) {
   }, [formData]);
 }
 
-const TodoModel = ({ displayModel, setDisplayModel, setTodo }) => {
+const TodoModel = ({ showModel, setShowModel, setTodo }) => {
   const tagsInitial = [
     { id: 1, name: "work", color: "violet", selected: false },
     { id: 2, name: "study", color: "skyBlue", selected: false },
@@ -54,7 +54,7 @@ const TodoModel = ({ displayModel, setDisplayModel, setTodo }) => {
       setTitle("");
       setDescription("");
       setTags(tagsInitial);
-      setDisplayModel(false);
+      setShowModel(false);
     } catch (error) {
       console.log(error);
     }
@@ -63,13 +63,13 @@ const TodoModel = ({ displayModel, setDisplayModel, setTodo }) => {
   return (
     <div
       className={`${
-        displayModel ? "flex" : "hidden"
+        showModel ? "flex" : "hidden"
       } flex-col gap-7 text-darkDust pt-9 px-12 pb-8 w-[734px] shadow-md rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
     >
       <div className="flex items-center justify-between">
         <p
           className="text-sm cursor-pointer"
-          onClick={() => setDisplayModel(false)}
+          onClick={() => setShowModel(false)}
         >
           Cancel
         </p>
@@ -98,11 +98,6 @@ const TodoModel = ({ displayModel, setDisplayModel, setTodo }) => {
         <label className="font-medium text-lg" name="title">
           Description
         </label>
-        {/* <input
-          type="text"
-          placeholder="add a Description..."
-          className="bg-snow py-3 px-4 rounded-[10px] placeholder:text-darkDust min-h-[110px]"
-        /> */}
         <textarea
           name=""
           id=""
