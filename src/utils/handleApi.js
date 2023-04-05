@@ -16,4 +16,11 @@ const createTodo = (formData, setFormData, setTodo) => {
     getAllTodo(setTodo);
   });
 };
-export { getAllTodo, createTodo };
+
+const deleteTodo = (_id, setTodo) => {
+  axios.delete(`${baseUrl}/delete`, { data: { _id } }).then((data) => {
+    console.log(data);
+    getAllTodo(setTodo);
+  });
+};
+export { getAllTodo, createTodo, deleteTodo };

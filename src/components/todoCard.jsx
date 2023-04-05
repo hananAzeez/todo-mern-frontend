@@ -1,6 +1,9 @@
 import { BsThreeDots } from "react-icons/bs";
+import TodoCardOptions from "./TodoCardOptions";
+import { useState } from "react";
 
-const TodoCard = ({ title, description, tags }) => {
+const TodoCard = ({ title, description, tags, setTodo, id }) => {
+  const [showOptions, setShowOptions] = useState(false);
   const color = [];
   const tagColor = (tags) => {
     Array.isArray(tags) &&
@@ -20,7 +23,6 @@ const TodoCard = ({ title, description, tags }) => {
         }
         return color;
       });
-    console.log("colors: ", color);
   };
   tagColor(tags);
   return (
@@ -30,7 +32,17 @@ const TodoCard = ({ title, description, tags }) => {
     >
       <div className="flex items-center justify-between">
         <p className="font-medium  text-xl">{title}</p>
-        <BsThreeDots />
+        <div className="relative">
+          <BsThreeDots
+            className="cursor-pointer"
+            onClick={() => setShowOptions(!showOptions)}
+          />
+          <TodoCardOptions
+            showOptions={showOptions}
+            setTodo={setTodo}
+            id={id}
+          />
+        </div>
       </div>
       <p className="max-w-[400px] pt-5">{description}</p>
       <div className="tags pt-6 flex w-full items-center justify-between">

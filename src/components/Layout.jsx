@@ -35,10 +35,12 @@ const Layout = () => {
                 return (
                   <TodoCard
                     key={item._id}
+                    id={item._id}
                     title={item.title}
                     description={item.description}
                     tags={item.tags}
                     completed={item.completed}
+                    setTodo={setTodo}
                   />
                 );
               })
