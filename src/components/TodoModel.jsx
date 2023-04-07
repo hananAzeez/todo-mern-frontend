@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createTodo, updateTodo } from "../utils/handleApi";
 
 const TodoModel = ({
@@ -16,8 +16,8 @@ const TodoModel = ({
     { id: 3, name: "entertainment", color: "pink", selected: false },
     { id: 4, name: "family", color: "green", selected: false },
   ];
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(updateForm.title || "");
+  const [description, setDescription] = useState(updateForm.description || "");
   const [tags, setTags] = useState(tagsInitial);
 
   const handleTagClick = (tagId) => {
@@ -32,13 +32,24 @@ const TodoModel = ({
     });
   };
 
-  // Call custom hook to log formData updates
-  // useLogFormData(formData);
-
-  const todoForm = async (title, description, tags) => {
+  function filterTagNames(tags) {
     const selectedTags = tags.filter((tag) => tag.selected === true);
     const selectedTagNames = selectedTags.map((tag) => tag.name);
+    return selectedTagNames;
+  }
+  useEffect(() => {
+    if (isUpdating) {
+      setTitle(updateForm.title);
+      setDescription(updateForm.description);
+    } else {
+      setTitle("");
+      setDescription("");
+    }
+  }, [isUpdating, updateForm]);
 
+  //creating todo
+  const todoForm = async (title, description, tags) => {
+    const selectedTagNames = filterTagNames(tags);
     const formData = {
       title: title,
       description: description,
@@ -56,9 +67,9 @@ const TodoModel = ({
     }
   };
 
+  //updating todo
   const editForm = async (_id, title, description, tags) => {
-    const selectedTags = tags.filter((tag) => tag.selected === true);
-    const selectedTagNames = selectedTags.map((tag) => tag.name);
+    const selectedTagNames = filterTagNames(tags);
 
     const formData = {
       _id: _id,
@@ -73,6 +84,7 @@ const TodoModel = ({
       setDescription("");
       setTags(tagsInitial);
       setShowModel(false);
+      setUpdateForm({});
       setIsUpdating(false);
     } catch (error) {
       console.log(error);

@@ -10,6 +10,7 @@ const Layout = () => {
   const [showModel, setShowModel] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateForm, setUpdateForm] = useState({});
+  const [selectedTag, setSelectedTag] = useState([]);
 
   useEffect(() => {
     getAllTodo(setTodo);
@@ -28,7 +29,7 @@ const Layout = () => {
         } w-full h-full bg-black absolute opacity-30 z-10`}
       />
       <div className="flex justify-start gap-5 max-w-7xl mx-auto">
-        <Sidebar />
+        <Sidebar setSelectedTag={setSelectedTag} />
         <div className="content flex flex-col py-16 gap-16 w-full">
           <HiPlus
             className="self-end text-3xl cursor-pointer z-10"
@@ -52,6 +53,7 @@ const Layout = () => {
                     setShowModel={setShowModel}
                     isUpdating={isUpdating}
                     setIsUpdating={setIsUpdating}
+                    selectedTag={selectedTag}
                     editMode={() =>
                       editMode({
                         _id: item._id,

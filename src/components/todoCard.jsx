@@ -11,8 +11,10 @@ const TodoCard = ({
   isUpdating,
   setIsUpdating,
   editMode,
+  selectedTag,
 }) => {
   const [showOptions, setShowOptions] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const color = [];
   const tagColor = (tags) => {
     Array.isArray(tags) &&
@@ -34,13 +36,29 @@ const TodoCard = ({
       });
   };
   tagColor(tags);
+
+  const displayTodo = () => {
+    const selectedTags = selectedTag.filter((tag) => tag.selected === true);
+    if (selectedTags.length === 0) {
+      return true;
+    } else {
+      return (
+        selectedTags.length > 0 &&
+        selectedTags.some((tag) => tags.includes(tag.name))
+      );
+    }
+  };
   return (
     <div
-      className="flex flex-col rounded text-darkDust bg-lightYellow
-    px-6 pt-6 pb-4"
+      className={`${
+        displayTodo() ? "flex" : "hidden"
+      } flex-col rounded text-darkDust bg-lightYellow
+    px-6 pt-6 pb-4`}
     >
       <div className="flex items-center justify-between">
-        <p className="font-medium  text-xl">{title}</p>
+        <p className="font-medium  text-xl">
+          {completed ? <s>{title}</s> : title}
+        </p>
         <div className="relative">
           <BsThreeDots
             className="cursor-pointer"
@@ -55,7 +73,9 @@ const TodoCard = ({
           />
         </div>
       </div>
-      <p className="max-w-[400px] pt-5">{description}</p>
+      <p className="max-w-[400px] pt-5">
+        {completed ? <s>{description}</s> : description}
+      </p>
       <div className="tags pt-6 flex w-full items-center justify-between">
         <div className="flex gap-2">
           {color.length !== 0 &&
@@ -64,7 +84,13 @@ const TodoCard = ({
             ))}
         </div>
         <div className="flex gap-2 ">
-          <input type="checkbox" name="" id="" />
+          <input
+            type="checkbox"
+            name=""
+            id=""
+            className=""
+            onClick={() => setCompleted(!completed)}
+          />
           <p className="text-light-dust text-sm">Done</p>
         </div>
       </div>
