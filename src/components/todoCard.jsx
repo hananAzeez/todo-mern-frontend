@@ -66,6 +66,7 @@ const TodoCard = ({
           />
           <TodoCardOptions
             showOptions={showOptions}
+            setShowOptions={setShowOptions}
             setTodo={setTodo}
             id={id}
             setIsUpdating={setIsUpdating}
