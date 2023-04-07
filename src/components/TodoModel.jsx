@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
-import { createTodo } from "../utils/handleApi";
+import { useState } from "react";
+import { createTodo, updateTodo } from "../utils/handleApi";
 
-function useLogFormData(formData) {
-  useEffect(() => {
-    console.log("formData", formData);
-  }, [formData]);
-}
-
-const TodoModel = ({ showModel, setShowModel, setTodo }) => {
+const TodoModel = ({
+  showModel,
+  setShowModel,
+  setTodo,
+  isUpdating,
+  setIsUpdating,
+  updateForm,
+  setUpdateForm,
+}) => {
   const tagsInitial = [
     { id: 1, name: "work", color: "violet", selected: false },
     { id: 2, name: "study", color: "skyBlue", selected: false },
@@ -16,11 +18,6 @@ const TodoModel = ({ showModel, setShowModel, setTodo }) => {
   ];
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    tags: [],
-  });
   const [tags, setTags] = useState(tagsInitial);
 
   const handleTagClick = (tagId) => {
@@ -36,7 +33,7 @@ const TodoModel = ({ showModel, setShowModel, setTodo }) => {
   };
 
   // Call custom hook to log formData updates
-  useLogFormData(formData);
+  // useLogFormData(formData);
 
   const todoForm = async (title, description, tags) => {
     const selectedTags = tags.filter((tag) => tag.selected === true);
@@ -47,10 +44,9 @@ const TodoModel = ({ showModel, setShowModel, setTodo }) => {
       description: description,
       tags: selectedTagNames,
     };
-    setFormData(formData);
     console.log("formData", formData);
     try {
-      await createTodo(formData, setFormData, setTodo);
+      await createTodo(formData, setTodo);
       setTitle("");
       setDescription("");
       setTags(tagsInitial);
@@ -60,24 +56,53 @@ const TodoModel = ({ showModel, setShowModel, setTodo }) => {
     }
   };
 
+  const editForm = async (_id, title, description, tags) => {
+    const selectedTags = tags.filter((tag) => tag.selected === true);
+    const selectedTagNames = selectedTags.map((tag) => tag.name);
+
+    const formData = {
+      _id: _id,
+      title: title,
+      description: description,
+      tags: selectedTagNames,
+    };
+    console.log("formData", formData);
+    try {
+      await updateTodo(formData, setTodo);
+      setTitle("");
+      setDescription("");
+      setTags(tagsInitial);
+      setShowModel(false);
+      setIsUpdating(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className={`${
-        showModel ? "flex" : "hidden"
+        showModel || isUpdating ? "flex" : "hidden"
       } flex-col gap-7 text-darkDust pt-9 px-12 pb-8 w-[734px] shadow-md rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
     >
       <div className="flex items-center justify-between">
         <p
           className="text-sm cursor-pointer"
-          onClick={() => setShowModel(false)}
+          onClick={() => {
+            setShowModel(false);
+            setIsUpdating(false);
+          }}
         >
           Cancel
         </p>
         <button
           className="py-3 px-11 bg-darkDust text-white rounded-xl font-medium"
-          onClick={() => todoForm(title, description, tags)}
+          onClick={() =>
+            isUpdating
+              ? editForm(updateForm._id, title, description, tags)
+              : todoForm(title, description, tags)
+          }
         >
-          Add
+          {isUpdating ? "Update" : "Add"}
         </button>
       </div>
       {/* title */}

@@ -8,15 +8,10 @@ const TodoCard = ({
   tags,
   setTodo,
   id,
+  isUpdating,
+  setIsUpdating,
   editMode,
-  setEditMode,
 }) => {
-  const [formData, setFormData] = useState({
-    _id: id,
-    title: title,
-    description: description,
-    tags: tags,
-  });
   const [showOptions, setShowOptions] = useState(false);
   const color = [];
   const tagColor = (tags) => {
@@ -55,9 +50,8 @@ const TodoCard = ({
             showOptions={showOptions}
             setTodo={setTodo}
             id={id}
-            formData={formData}
-            setFormData={setFormData}
-            setEditMode={setEditMode}
+            setIsUpdating={setIsUpdating}
+            editMode={editMode}
           />
         </div>
       </div>
@@ -66,7 +60,7 @@ const TodoCard = ({
         <div className="flex gap-2">
           {color.length !== 0 &&
             color.map((col) => (
-              <div className={`w-7 h-7 rounded-full bg-${col}`} />
+              <div className={`w-7 h-7 rounded-full bg-${col}`} key={col} />
             ))}
         </div>
         <div className="flex gap-2 ">

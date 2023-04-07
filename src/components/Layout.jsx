@@ -8,17 +8,24 @@ import TodoModel from "./TodoModel";
 const Layout = () => {
   const [todo, setTodo] = useState([]);
   const [showModel, setShowModel] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateForm, setUpdateForm] = useState({});
 
   useEffect(() => {
     getAllTodo(setTodo);
   }, []);
+
+  const editMode = (updateForm) => {
+    setIsUpdating(true);
+    // console.log("Layout updateform ", updateForm);
+    setUpdateForm(updateForm);
+  };
   return (
     <>
       <div
         className={`${
-          showModel ? "" : "hidden"
-        } w-full h-full bg-black absolute opacity-30`}
+          showModel || isUpdating ? "" : "hidden"
+        } w-full h-full bg-black absolute opacity-30 z-10`}
       />
       <div className="flex justify-start gap-5 max-w-7xl mx-auto">
         <Sidebar />
@@ -32,7 +39,7 @@ const Layout = () => {
               <p>Add to do</p>
             ) : (
               todo.map((item) => {
-                console.log(item);
+                // console.log(item);
                 return (
                   <TodoCard
                     key={item._id}
@@ -43,8 +50,16 @@ const Layout = () => {
                     completed={item.completed}
                     setTodo={setTodo}
                     setShowModel={setShowModel}
-                    editMode={editMode}
-                    setEditMode={setEditMode}
+                    isUpdating={isUpdating}
+                    setIsUpdating={setIsUpdating}
+                    editMode={() =>
+                      editMode({
+                        _id: item._id,
+                        title: item.title,
+                        description: item.description,
+                        tags: item.tags,
+                      })
+                    }
                   />
                 );
               })
@@ -53,8 +68,10 @@ const Layout = () => {
               setShowModel={setShowModel}
               showModel={showModel}
               setTodo={setTodo}
-              editMode={editMode}
-              setEditMode={setEditMode}
+              isUpdating={isUpdating}
+              setIsUpdating={setIsUpdating}
+              updateForm={updateForm}
+              setUpdateForm={setUpdateForm}
             />
           </div>
         </div>

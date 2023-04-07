@@ -1,6 +1,13 @@
 import { deleteTodo } from "../utils/handleApi";
 
-const TodoCardOptions = ({ showOptions, id, setTodo, setEditMode }) => {
+const TodoCardOptions = ({
+  showOptions,
+  id,
+  setTodo,
+  setIsUpdating,
+  editMode,
+}) => {
+  // console.log("editMode", editMode._id);
   return (
     <div
       className={`${
@@ -9,7 +16,10 @@ const TodoCardOptions = ({ showOptions, id, setTodo, setEditMode }) => {
     >
       <div
         className="edit px-6 hover:bg-gray-100 pb-3 pt-4 rounded-t-xl cursor-pointer`"
-        onClick={() => setEditMode(true)}
+        onClick={() => {
+          setIsUpdating(true);
+          editMode();
+        }}
       >
         Edit...
       </div>

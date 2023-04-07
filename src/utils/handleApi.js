@@ -9,10 +9,9 @@ const getAllTodo = (setTodo) => {
   });
 };
 
-const createTodo = (formData, setFormData, setTodo) => {
+const createTodo = (formData, setTodo) => {
   axios.post(`${baseUrl}/create`, formData).then((data) => {
     console.log(data);
-    setFormData({});
     getAllTodo(setTodo);
   });
 };
@@ -24,11 +23,10 @@ const deleteTodo = (_id, setTodo) => {
   });
 };
 
-const updateTodo = (formData, setFormData, setTodo) => {
-  axios.put(`${baseUrl}/update`, { formData }).then((data) => {
+const updateTodo = (formData, setTodo) => {
+  axios.post(`${baseUrl}/update`, { ...formData }).then((data) => {
     console.log(data);
     getAllTodo(setTodo);
-    setFormData({});
   });
 };
 export { getAllTodo, createTodo, updateTodo, deleteTodo };
