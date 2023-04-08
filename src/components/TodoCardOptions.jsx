@@ -11,6 +11,7 @@ const TodoCardOptions = ({
   // console.log("editMode", editMode._id);
   return (
     <>
+      {/* empty div covering the whole screen except content */}
       <div
         className={`${
           showOptions ? "" : "hidden"
@@ -29,6 +30,7 @@ const TodoCardOptions = ({
           className="edit px-6 hover:bg-gray-100 pb-3 pt-4 rounded-t-xl cursor-pointer`"
           onClick={() => {
             setIsUpdating(true);
+            setShowOptions(false);
             editMode();
           }}
         >

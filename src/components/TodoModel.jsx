@@ -105,7 +105,7 @@ const TodoModel = ({
       <div
         className={`${
           showModel || isUpdating ? "flex" : "hidden"
-        } flex-col gap-7 text-darkDust py-4 lg:pt-9 px-6 lg:px-12 lg:pb-8 w-3/4 lg:w-[734px] shadow-md rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+        } flex-col gap-7 text-darkDust py-6 lg:pt-9 px-6 lg:px-12 lg:pb-8 w-full h-full lg:h-auto lg:w-[734px] shadow-md lg:rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
       >
         <div className="flex items-center justify-between">
           <p
@@ -118,7 +118,7 @@ const TodoModel = ({
             Cancel
           </p>
           <button
-            className="py-3 px-11 bg-darkDust text-white rounded-xl font-medium"
+            className="py-3 px-11 bg-darkDust text-white rounded-xl font-medium "
             onClick={() =>
               isUpdating
                 ? editForm(updateForm._id, title, description, tags)

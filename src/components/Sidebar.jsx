@@ -28,7 +28,7 @@ const Sidebar = ({ setSelectedTag }) => {
   return (
     <div className="flex flex-col lg:gap-16 lg:py-16 lg:w-56">
       <p className="font-medium text-[32px] text-darkDust p-4 lg:p-0">todo</p>
-      <div className="flex lg:flex-col lg:gap-5">
+      <div className="flex lg:flex-col lg:gap-5  overflow-scroll lg:overflow-hidden px-2">
         {tags.map((tag) => (
           <div
             key={tag.id}
