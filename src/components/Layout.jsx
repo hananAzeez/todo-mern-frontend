@@ -28,14 +28,14 @@ const Layout = () => {
           showModel || isUpdating ? "" : "hidden"
         } w-full h-full bg-black absolute opacity-30 z-10`}
       />
-      <div className="flex justify-start gap-5 max-w-7xl mx-auto">
+      <div className="flex flex-col lg:flex-row justify-start gap-5 max-w-7xl mx-auto overflow-scroll lg:overflow-hidden">
         <Sidebar setSelectedTag={setSelectedTag} />
-        <div className="content flex flex-col py-16 gap-16 w-full">
+        <div className="content px-4 lg:px-0 flex flex-col lg:py-16 gap-4 lg:gap-16 w-full">
           <HiPlus
             className="self-end text-3xl cursor-pointer z-10"
             onClick={() => setShowModel(true)}
           />
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid md:grid-cols-2 gap-5">
             {Array.isArray(todo) && todo.length === 0 ? (
               <p>Add to do</p>
             ) : (

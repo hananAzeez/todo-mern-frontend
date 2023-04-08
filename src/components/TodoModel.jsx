@@ -105,7 +105,7 @@ const TodoModel = ({
       <div
         className={`${
           showModel || isUpdating ? "flex" : "hidden"
-        } flex-col gap-7 text-darkDust pt-9 px-12 pb-8 w-[734px] shadow-md rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
+        } flex-col gap-7 text-darkDust py-4 lg:pt-9 px-6 lg:px-12 lg:pb-8 w-3/4 lg:w-[734px] shadow-md rounded-2xl absolute bg-white z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}
       >
         <div className="flex items-center justify-between">
           <p
@@ -160,7 +160,7 @@ const TodoModel = ({
         {/* tags */}
         <div className="Description flex flex-col gap-3">
           <p className="font-medium text-lg">Tags</p>
-          <div className="flex items-center gap-7">
+          <div className="grid md:grid-cols-2 lg:flex items-center gap-2 lg:gap-7">
             {tags.map((tag) => (
               <div
                 key={tag.id}

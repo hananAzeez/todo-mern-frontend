@@ -1,24 +1,5 @@
 import { useEffect, useState } from "react";
 
-const tags = [
-  {
-    title: "work",
-    color: "violet",
-  },
-  {
-    title: "study",
-    color: "skyBlue",
-  },
-  {
-    title: "entertainment",
-    color: "pink",
-  },
-  {
-    title: "family",
-    color: "green",
-  },
-];
-
 const Sidebar = ({ setSelectedTag }) => {
   const tagsInitial = [
     { id: 1, name: "work", color: "violet", selected: false },
@@ -45,8 +26,8 @@ const Sidebar = ({ setSelectedTag }) => {
   }, [tags, setSelectedTag]);
 
   return (
-    <div className="flex flex-col gap-16 lg:py-16 lg:w-56">
-      <p className="font-medium text-[32px] text-darkDust">todo</p>
+    <div className="flex flex-col lg:gap-16 lg:py-16 lg:w-56">
+      <p className="font-medium text-[32px] text-darkDust p-4 lg:p-0">todo</p>
       <div className="flex lg:flex-col lg:gap-5">
         {tags.map((tag) => (
           <div
